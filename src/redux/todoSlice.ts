@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 export interface TodoState {
   value: number
@@ -29,7 +29,7 @@ export const counterSlice = createSlice({
 export const {
   increment,
   decrement,
-  incrementByAmount
+  incrementByAmount,
 } = counterSlice.actions
 
 export default counterSlice.reducer

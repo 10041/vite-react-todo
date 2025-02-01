@@ -1,29 +1,47 @@
+import type { RootState } from '@/redux/store.ts'
+import TaskItem from '@/components/TaskItem.tsx'
+import { useAppDispatch, useAppSelector } from '@/redux/hooks.ts'
+import { createTask, deleteAll, deleteAllCompleted } from '@/redux/todoSlice.ts'
 import { useState } from 'react'
-import './App.css'
+import './theme/App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const dispatch = useAppDispatch()
+  const { tasks } = useAppSelector((state: RootState) => state.todoList)
+
+  const [newTaskText, setNewTaskText] = useState('')
+
+  const tasksList = tasks.map(task => <TaskItem key={task.id} task={task} />)
+
+  function addNewTask() {
+    if (!newTaskText)
+      return
+
+    dispatch(createTask(newTaskText))
+    setNewTaskText('')
+  }
 
   return (
     <>
       <h1>Todo List</h1>
-      <div className="card">
-        <button type="button" onClick={() => setCount(count => count + 1)}>
-          count is
-          {' '}
-          {count}
-        </button>
-        <p>
-          Edit
-          {' '}
-          <code>src/App.tsx</code>
-          {' '}
-          and save to test HMR
-        </p>
+      <div className="add-task">
+        <input
+          type="text"
+          placeholder="What do you want to do?"
+          value={newTaskText}
+          onChange={e => setNewTaskText(e.target.value)}
+        />
+        <button type="button" onClick={addNewTask} disabled={!newTaskText}>Add</button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <div className="todo-list">
+        {tasks.length
+          ? tasksList
+          : <p className="no-tasks-message">No tasks left. Well done!</p>}
+      </div>
+      <div className="todo-actions">
+        <button type="button" onClick={() => dispatch(deleteAllCompleted())}>Clear completed</button>
+        <button type="button" onClick={() => dispatch(deleteAll())}>Clear all</button>
+      </div>
     </>
   )
 }

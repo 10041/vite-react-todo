@@ -1,0 +1,40 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  background-color: rgba(14.12, 14.12, 14.12, 0.87);
+  border-radius: 20px;
+}
+.add-task {
+  margin-bottom: 20px;
+}
+
+.add-task button {
+  margin-left: 10px;
+}
+
+.task-item {
+  margin-bottom: 10px;
+}
+
+.task-item button {
+  margin: 0 0 0 10px;
+}
+
+.task-item.checked {
+  text-decoration: line-through;
+}
+
+.task-item span {
+  margin-left: 10px;
+}
+
+.todo-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.no-tasks-message {
+  margin: 40px 0;
+}

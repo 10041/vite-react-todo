@@ -11,8 +11,6 @@ function App() {
 
   const [newTaskText, setNewTaskText] = useState('')
 
-  const tasksList = tasks.map(task => <TaskItem key={task.id} task={task} />)
-
   function addNewTask() {
     if (!newTaskText)
       return
@@ -35,7 +33,7 @@ function App() {
       </div>
       <div className="todo-list">
         {tasks.length
-          ? tasksList
+          ? tasks.map(task => <TaskItem key={task.id} task={task} />)
           : <p className="no-tasks-message">No tasks left. Well done!</p>}
       </div>
       <div className="todo-actions">

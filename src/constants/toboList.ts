@@ -15,3 +15,5 @@ export const defaultTasks: Task[] = [
     text: 'todo item 3',
   },
 ]
+
+export const maxId = 10000

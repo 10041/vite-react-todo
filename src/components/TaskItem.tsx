@@ -9,9 +9,9 @@ function TaskItem({ task }: { task: Task }) {
   const [updatedTaskText, setUpdatedTaskText] = useState(task.text)
 
   function updateTask() {
-    if (task.text !== updatedTaskText) {
-      dispatch(updateTaskText({ id: task.id, text: updatedTaskText }))
-    }
+    updatedTaskText && task.text !== updatedTaskText
+      ? dispatch(updateTaskText({ id: task.id, text: updatedTaskText }))
+      : setUpdatedTaskText(task.text)
 
     setIsEditing(!isEditing)
   }
@@ -26,7 +26,7 @@ function TaskItem({ task }: { task: Task }) {
                 value={updatedTaskText}
                 onChange={e => setUpdatedTaskText(e.target.value)}
               />
-              <button type="button" onClick={updateTask}>Save</button>
+              <button type="button" onClick={updateTask}>{updatedTaskText ? 'Save' : 'Close'}</button>
             </div>
           )
         : (

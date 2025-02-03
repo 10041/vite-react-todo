@@ -1,5 +1,5 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { defaultTasks } from '@/constants/toboList.ts'
+import { defaultTasks, maxId } from '@/constants/toboList.ts'
 import { createSlice } from '@reduxjs/toolkit'
 
 export interface TodoState {
@@ -17,7 +17,7 @@ export const counterSlice = createSlice({
   initialState,
   reducers: {
     createTask: (state, action: PayloadAction<string>) => {
-      const newId = state.tasks.length + 1000
+      const newId = Math.round(Math.random() * maxId)
 
       state.tasks.push({
         id: newId,
@@ -26,7 +26,7 @@ export const counterSlice = createSlice({
       })
     },
     getTask: (state, action: PayloadAction<number>) => {
-      const task = state.tasks.find(task => task.id === action.payload)
+      const task = state.tasks.find(({ id }) => id === action.payload)
 
       if (task) {
         task.isComplete = !task.isComplete
@@ -41,14 +41,14 @@ export const counterSlice = createSlice({
       }
     },
     toggleTask: (state, action: PayloadAction<number>) => {
-      const task = state.tasks.find(task => task.id === action.payload)
+      const task = state.tasks.find(({ id }) => id === action.payload)
 
       if (task) {
         task.isComplete = !task.isComplete
       }
     },
     deleteTask: (state, action: PayloadAction<number>) => {
-      state.tasks = state.tasks.filter(task => task.id !== action.payload)
+      state.tasks = state.tasks.filter(({ id }) => id !== action.payload)
     },
     deleteAllCompleted: (state) => {
       state.tasks = state.tasks.filter(task => !task.isComplete)
